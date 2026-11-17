@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Persistent Pinned Tabs</title>
+<link rel="stylesheet" href="options.css">
+</head>
+<body>
+<main>
+  <section class="card">
+    <header class="card-head">
+      <h1>Persistent Pinned Tabs</h1>
+      <p>Pinned tabs survive restarts, follow you into every window and sync between browsers through your own Dropbox.</p>
+    </header>
+    <div class="card-body">
+      <div id="steps">
+        <ol class="steps">
+          <li>Create an app at <a href="https://www.dropbox.com/developers/apps" target="_blank" rel="noopener">dropbox.com/developers/apps</a>: Scoped access, App folder. On the Permissions tab turn on <strong>files.content.read</strong>, <strong>files.content.write</strong> and <strong>account_info.read</strong>, then Submit.</li>
+          <li>On the Settings tab add this address under <strong>Redirect URIs</strong> and click Add:
+            <div class="row"><code id="redirect"></code><button id="copy" class="btn ghost" type="button">Copy address</button></div>
+          </li>
+          <li>Paste the <strong>App key</strong> below and click Connect.</li>
+        </ol>
+      </div>
+      <label id="appField" class="field">Dropbox app key
+        <input id="appKey" type="text" class="wide" autocomplete="off" spellcheck="false"></label>
+      <div class="row">
+        <button id="connect" class="btn primary" type="button">Connect with Dropbox</button>
+        <span id="conn" class="muted">Not connected</span>
+        <button id="disconnect" class="btn link" type="button" hidden>Disconnect</button>
+      </div>
+      <div class="controls">
+        <label class="check"><input id="autoSync" type="checkbox"> Sync automatically</label>
+        <label class="field">Sync every (minutes)
+          <input id="syncMinutes" type="number" min="15" step="5"></label>
+        <label class="check"><input id="sameInEveryWindow" type="checkbox"> Same pinned tabs in every window</label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="encCard" hidden>
+    <header class="card-head">
+      <h2>Encryption</h2>
+      <p id="encSub"></p>
+    </header>
+    <form id="encForm" class="add-form" hidden>
+      <label class="field"><span id="encLabel">Passphrase</span>
+        <input id="encPass" type="password" class="wide" autocomplete="off" spellcheck="false"></label>
+      <label class="field" id="encPass2Field">Repeat passphrase
+        <input id="encPass2" type="password" class="wide" autocomplete="off" spellcheck="false"></label>
+      <button id="encSave" class="btn primary" type="submit">Unlock</button>
+      <button id="encCancel" class="btn ghost" type="button" hidden>Cancel</button>
+    </form>
+    <div id="encActions" class="add-form" hidden>
+      <button id="encChange" class="btn ghost" type="button">Change passphrase</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <header class="card-head head">
+      <div>
+        <h2>Connected browsers:</h2>
+        <p id="sub">Browsers not assigned to a Startup. Use “Assign to Startup” to move one into its own section.</p>
+      </div>
+      <div class="head-actions">
+        <button id="syncNow" class="btn ghost" type="button">Sync now</button>
+        <button id="sortMode" class="btn dark" type="button">Sort</button>
+        <select id="addBrowserSel" class="add-browser" aria-label="Add New Browser"></select>
+        <button id="addStartup" class="btn primary" type="button">+ Add new Startup</button>
+      </div>
+    </header>
+    <form id="addForm" class="add-form" hidden>
+      <label class="field">New startup name
+        <input id="startupName" type="text" class="wide" maxlength="60" autocomplete="off" placeholder="e.g. Work laptop"></label>
+      <button id="addSave" class="btn primary" type="submit">Add</button>
+      <button id="addCancel" class="btn ghost" type="button">Cancel</button>
+    </form>
+    <form id="browserForm" class="add-form" hidden>
+      <label class="field"><span id="browserFormTitle">New browser name</span>
+        <input id="browserName" type="text" class="wide" maxlength="60" autocomplete="off" placeholder="e.g. Firefox"></label>
+      <button id="browserSave" class="btn primary" type="submit">Add</button>
+      <button id="browserCancel" class="btn ghost" type="button">Cancel</button>
+    </form>
+    <div id="defaultTable"></div>
+    <p id="status" class="status" role="status"></p>
+  </section>
+  <div id="startups"></div>
+</main>
+<script src="options.js"></script>
+</body>
+</html>
