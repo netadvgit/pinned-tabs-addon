@@ -6,7 +6,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "persistent-pinned-tabs@netadev.local",
-      "strict_min_version": "109.0"
+      "strict_min_version": "109.0",
+      "update_url": "https://ffsessions.curly-sky-33da.workers.dev/updates.json"
     }
   },
   "permissions": [
